@@ -7,14 +7,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $query = "select email,password, category from admin_user where email='$email' and password='$password'";
+    $query = "select email from admin_user where email='$email' and password='$password'";
 
-    $result = mysqli_query($conn, $query);
+    $result = mysqli_query($conn,$query);
 
-    if (mysqli_num_rows($result) == 1) {
-        $_SESSION['username'] = $email;
+    if (mysqli_num_rows($result)==1) {
+        $_SESSION['email'] = $email;
         header('location:http://localhost/CRUD/Home.php');
-    } else {
+    }
+    else {
         $err = "Wrong credentials";
     }
 }
