@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         <button type="submit" class="btn btn-primary">Sign in</button>
-        <buton class="btn btn-default"><a href="Register.php"> New register </a></buton>
+        <buton class="btn btn-default"><a href="register.php">New register </a></buton>
 
 
     </form>
