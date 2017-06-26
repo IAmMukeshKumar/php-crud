@@ -19,14 +19,14 @@ function getError($name)
     if (isset($errors[$name])) {
         return $errors[$name];
     }
-    return '';
+    return null;
 }
 
 function old($name, $default = null)
 {
     if (isset($_POST[$name])) {
-        echo sanitize($_POST[$name]);
+        return sanitize($_POST[$name]);
     }
 
-    echo $default;
+    return $default;
 }

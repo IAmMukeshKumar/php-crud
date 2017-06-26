@@ -27,14 +27,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['password'] = "Password must be atleast 6 characters ";
     } else {
 
-        $inputs['password'] = sanitize($_POST["password"]);
+        $password_sanitized = sanitize($_POST["password"]);
+        $inputs['password']=md5($password_sanitized);
     }
 
     if (empty($_POST["password_match"])) {
         $errors['password_match'] = "Reenter the password";
     } else {
 
-        $inputs['password_match'] = sanitize($_POST["password_match"]);
+       $password_match_sanitized = sanitize($_POST["password_match"]);
+       $inputs['password_match']=md5($password_match_sanitized);
     }
 
     if (!(empty($_POST["password"]) && empty($_POST["password_match"]))) {
@@ -90,16 +92,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+require 'partials/header.php';
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Registration form</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <script type="text/javascript" src="assets/js/app.js"></script>
 
-</head>
-<body>
+
+
 <div class="container">
 
     <div class="col-md-6 col-md-offset-3">
@@ -170,6 +167,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 
-</body>
-</html>
+<?php require 'partials/footer.php';?>
 

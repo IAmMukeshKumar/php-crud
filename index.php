@@ -6,27 +6,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $password_md5 = md5($password);
 
-    $query = "select email from admin_user where email='$email' and password='$password'";
+    $query = "select email,role from users where email='$email' and password='$password_md5'";
 
-    $result = mysqli_query($conn,$query);
+    $result = mysqli_query($conn, $query);
 
-    if (mysqli_num_rows($result)==1) {
+    $rows = mysqli_fetch_assoc($result);
+    if (mysqli_num_rows($result) == 1) {
+        $_SESSION['role'] = $rows["role"];
         $_SESSION['email'] = $email;
-        header('location:http://localhost/CRUD/Home.php');
-    }
-    else {
+        header('location:home.php');
+    } else {
         $err = "Wrong credentials";
     }
 }
+
+require 'partials/header.php';
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login form</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-</head>
-<body>
+
+
 <div class="container">
 
     <form class="form-horizontal col-md-6 col-md-offset-3"
@@ -55,6 +54,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 
-</body>
-</html>
+<?php require 'partials/footer.php'; ?>
 
