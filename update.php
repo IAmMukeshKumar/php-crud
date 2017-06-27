@@ -91,8 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //echo "test"; die;
         $password = $inputs['password'];
         $password_match=$inputs['password_match'];
         $role=$inputs['role'];
-
-        $sql = "UPDATE users SET name='$name',address='$address', password='$password',password_match='$password_match',email='$email',education='$education',gender=$gender,role='$role' ";
+        $key=$_SESSION['key'];
+        $sql = "UPDATE users SET name='$name',address='$address', password='$password',password_match='$password_match',email='$email',education='$education',gender=$gender,role='$role' where id='$key'";
 
       // print_r($inputs);
 
@@ -129,6 +129,7 @@ require 'partials/header.php' ;
         <?php if (!empty(getError('password_matched'))): ?>
             <div class="alert alert-danger">
                 <?php echo getError('password_matched'); ?>
+                <?php echo getError('server'); ?>
             </div>
         <?php endif; ?>
     </div>
@@ -269,7 +270,7 @@ require 'partials/header.php' ;
                 echo old('password_match');
             } ?>">
             <?php echo getError('password_match'); ?><br>
-            <?php echo getError('server'); ?>
+
             <label><br>
                 <input type="submit" name="submit" class="btn btn-primary" value="Register">
             </label>

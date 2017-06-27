@@ -114,13 +114,13 @@ require 'partials/header.php';
             <h1> Fill your credentials</h1>
             <label for="inputName3" class="control-label">Name</label>
             <input type="text" class="form-control" id="inputName3" name="name" placeholder="Name"
-                   value="<?php old('name') ?>">
+                   value="<?php echo old('name') ?>">
             <?php echo getError('name'); ?>
             <br>
 
             <label for="inputEducation3" class="control-label">Education</label>
 
-            <input type="text" class="form-control" name="education" id="inputEducation3" placeholder="Education" value="<?php old('education') ?>">
+            <input type="text" class="form-control" name="education" id="inputEducation3" placeholder="Education" value="<?php echo old('education') ?>">
             <?php echo getError('education'); ?> <br>
             <label for="inputAddress3" class="control-label">Address</label>
 
@@ -129,22 +129,22 @@ require 'partials/header.php';
 
             <label>
                 <p>Gender</p>
-                <input type="radio" name="gender" id="optionsRadios1" value=1 checked>
+                <input type="radio" name="gender" id="optionsRadios1" value=1 <?php if(old('gender')==1){echo "checked" ;} ?>>
                 Male
-                <input type="radio" name="gender" id="optionsRadios2" value=0>
+                <input type="radio" name="gender" id="optionsRadios2" value=0 <?php if(old('gender')==0){echo "checked" ;} ?>>
                 Female
             </label>
             <br>
 
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Email" value="<?php old('email') ?>">
+            <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Email" value="<?php echo old('email') ?>">
 
             <?php echo getError('email'); ?><br>
             <label>
                 <p>Role</p>
-                <input type="radio" name="role" id="optionsRadios1" value=1 checked>
+                <input type="radio" name="role" id="optionsRadios1" value=1 <?php if(old('role')==1){echo "checked" ;} ?>>
                 Admin
-                <input type="radio" name="role" id="optionsRadios2" value=0>
+                <input type="radio" name="role" id="optionsRadios2" value=0 <?php if(old('role')==0){echo "checked" ;} ?>>
                 User
                 <?php echo getError('role'); ?>
             </label><br>
@@ -152,10 +152,10 @@ require 'partials/header.php';
             <label for="exampleInputPassword1">Password </label>
 
             <input type="password" class="form-control" name="password" id="exampleInputPassword1"
-                   placeholder="Password" value="<?php old('password') ?>">
+                   placeholder="Password" value="<?php echo old('password') ?>">
             <?php echo getError('password'); ?><br>
             <input type="password" class="form-control" name="password_match" id="exampleInputPassword1"
-                   placeholder="Reenter Password" value="<?php old('password_match') ?>">
+                   placeholder="Reenter Password" value="<?php echo old('password_match') ?>">
             <?php echo getError('password_match'); ?><br>
             <?php echo getError('server'); ?>
             <label><br>

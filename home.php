@@ -1,18 +1,12 @@
 
 <?php
 require 'includes/index.php';
+
 if(!isset($_SESSION['email']))
     header('location:index.php');
+require 'partials/header.php' ;
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-</head>
-
-<body>
 
 <div class="container">
     <table class="table table-striped">
@@ -32,7 +26,6 @@ if(!isset($_SESSION['email']))
         {
             $query="select name,address,email,education,gender,role,id from users";
 
-
         }
         else
         {
@@ -45,8 +38,6 @@ if(!isset($_SESSION['email']))
         while($rows=mysqli_fetch_assoc($result))
         {  ?>
 
-
-
             <tr>
                 <td><?php echo $rows["name"] ;?></td>
                 <td><?php echo $rows["email"] ;?></td>
@@ -54,14 +45,13 @@ if(!isset($_SESSION['email']))
                 <td><?php $rows["gender"]? $gender="Male":$gender="Female"; echo $gender;?></td>
                 <td><?php $rows["role"]? $role="Admin":$role="User"; echo $role;?></td>
                 <td><?php echo $rows["address"] ;?></td>
-                <td><?php echo "<a href='update.php?key=" .$rows['id'] . "'>Update</a>" ; ?> </td>
-
+                <td> <?php echo "<a href='update.php?key=" .$rows['id'] . "'>".'<div class="btn btn-primary btn-xs"> <i class="glyphicon glyphicon-pencil"></i></div>  '. "  </a>" ; ?>
+                    <a class="delete_button" data-id="<?php echo $rows['id'];?>"> <div class="btn btn-danger btn-xs" ><i class="glyphicon glyphicon-trash"></i></div></a></td>
             </tr>
 
 
         <?php } ?>
-    <button class="btn btn-default"><a href="includes/logout.php"> Logout </a></button>
+    <button class="btn btn-default"><a href="includes/logout.php"> <i class="glyphicon glyphicon-off"></i> </a></button>
 
     <div>
-</body>
-</html>
+        <?php require 'partials/footer.php' ;?>
