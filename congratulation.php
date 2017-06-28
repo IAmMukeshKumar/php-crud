@@ -6,4 +6,5 @@ if(!isset($_SESSION['email']))
 }
 else {
     echo "Registration done";
+    echo "Check your mail for password";
 }

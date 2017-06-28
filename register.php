@@ -23,27 +23,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $inputs['address'] = sanitize($_POST["address"]);
     }
 
-    if (strlen($_POST["password"]) <= 6) {
-        $errors['password'] = "Password must be atleast 6 characters ";
-    } else {
 
-        $password_sanitized = sanitize($_POST["password"]);
-        $inputs['password']=md5($password_sanitized);
-    }
+//    if (strlen($_POST["password"]) <= 6) {
+//        $errors['password'] = "Password must be atleast 6 characters ";
+//    } else {
+//
+//        $password_sanitized = sanitize($_POST["password"]);
+     //  $inputs['password']=md5($password_sanitized);
+       $random_function_call=random_password(12);
+       $inputs['password']=md5($random_function_call);
+//    }
+//
+//    if (empty($_POST["password_match"])) {
+//        $errors['password_match'] = "Reenter the password";
+//    } else {
+//
+//       $password_match_sanitized = sanitize($_POST["password_match"]);
+//       $inputs['password_match']=md5($password_match_sanitized);
+//    }
+//
+//    if (!(empty($_POST["password"]) && empty($_POST["password_match"]))) {
+//        if (strcmp($_POST["password"], $_POST["password_match"])) {
+//            $errors['password_matched'] = "Password did not matched";
+        $inputs['password_match']=($random_function_call);
+//        }
+//    }
 
-    if (empty($_POST["password_match"])) {
-        $errors['password_match'] = "Reenter the password";
-    } else {
 
-       $password_match_sanitized = sanitize($_POST["password_match"]);
-       $inputs['password_match']=md5($password_match_sanitized);
-    }
-
-    if (!(empty($_POST["password"]) && empty($_POST["password_match"]))) {
-        if (strcmp($_POST["password"], $_POST["password_match"])) {
-            $errors['password_matched'] = "Password did not matched";
-        }
-    }
 
 
     if (empty($_POST["email"])) {
@@ -76,13 +82,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $values = implode("','", $inputs);
 
-        $sql = "insert into users (name,address, password,password_match,email,education,gender,role) values ('$values')";
-
-     print_r($sql);
-
-         echo $inputs["name"];
-
+        $sql = "insert into users (name,address,password,password_match,email,education,gender,role) values ('$values')";
         if (mysqli_query($conn, $sql)) {
+
+            $to = $_POST["email"];
+            $subject = 'Your Password';
+            $message = 'Your password is :' .$random_function_call;
+            $from = "From:Do not reply.This message is send to you by machine <no-reply@no-reply.biz>";
+            mail($to, $subject, $message, $from);
+
             header('location: congratulation.php');
 
         } else {
@@ -95,8 +103,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 require 'partials/header.php';
 ?>
 
-
-
 <div class="container">
 
     <div class="col-md-6 col-md-offset-3">
@@ -105,6 +111,7 @@ require 'partials/header.php';
                  <?php echo getError('password_matched'); ?>
             </div>
         <?php endif; ?>
+
     </div>
 
     <form class="form-horizontal col-md-6 col-md-offset-3"
@@ -148,15 +155,14 @@ require 'partials/header.php';
                 User
                 <?php echo getError('role'); ?>
             </label><br>
-
-            <label for="exampleInputPassword1">Password </label>
-
-            <input type="password" class="form-control" name="password" id="exampleInputPassword1"
-                   placeholder="Password" value="<?php echo old('password') ?>">
-            <?php echo getError('password'); ?><br>
-            <input type="password" class="form-control" name="password_match" id="exampleInputPassword1"
-                   placeholder="Reenter Password" value="<?php echo old('password_match') ?>">
-            <?php echo getError('password_match'); ?><br>
+<!--            <label for="exampleInputPassword1">Password </label>-->
+<!---->
+<!--            <input type="password" class="form-control" name="password" id="exampleInputPassword1"-->
+<!--                   placeholder="Password" value="--><?php //echo old('password') ?><!--">-->
+<!--            --><?php //echo getError('password'); ?><!--<br>-->
+<!--            <input type="password" class="form-control" name="password_match" id="exampleInputPassword1"-->
+<!--                   placeholder="Reenter Password" value="--><?php //echo old('password_match') ?><!--">-->
+<!--            --><?php //echo getError('password_match'); ?><!--<br>-->
             <?php echo getError('server'); ?>
             <label><br>
                 <input type="submit" name="submit" class="btn btn-primary" value="Register">

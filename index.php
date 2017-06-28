@@ -11,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query = "select email,role from users where email='$email' and password='$password_md5'";
 
     $result = mysqli_query($conn, $query);
-
     $rows = mysqli_fetch_assoc($result);
     if (mysqli_num_rows($result) == 1) {
         $_SESSION['role'] = $rows["role"];
