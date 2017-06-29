@@ -6,118 +6,118 @@ if(!isset($_SESSION['email']))
 {
     header('location:index.php');
 }
-  else {
+else {
 
-$errors = [];
-$inputs = [];
+    $errors = [];
+    $inputs = [];
 
-      //print_r($_SERVER["REQUEST_METHOD"]); die;
-if ($_SERVER["REQUEST_METHOD"] == "POST") { //echo "test"; die;
+    //print_r($_SERVER["REQUEST_METHOD"]); die;
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { //echo "test"; die;
 
-    if (empty($_POST["name"])) {
-        $errors['name'] = "Name is required";
-    } else {
-        $inputs['name'] = sanitize($_POST["name"]);
-        if (!preg_match("/^[a-zA-Z ]*$/", $_POST['name'])) {
-            $errors['name'] = "Only letters and white space allowed";
-        }
-    }
-
-    if (empty($_POST["address"])) {
-        $errors['address'] = "Address is required";
-    } else {
-        $inputs['address'] = sanitize($_POST["address"]);
-    }
-
-    if (strlen($_POST["password"]) <= 6) {
-        $errors['password'] = "Password must be atleast 6 characters ";
-    } else {
-
-        $password_sanitized = sanitize($_POST["password"]);
-        $inputs['password']=md5($password_sanitized);
-    }
-
-    if (empty($_POST["password_match"])) {
-        $errors['password_match'] = "Reenter the password";
-    } else {
-
-        $password_match_sanitized = sanitize($_POST["password_match"]);
-        $inputs['password_match']=md5($password_match_sanitized);
-    }
-
-    if (!(empty($_POST["password"]) && empty($_POST["password_match"]))) {
-        if (strcmp($_POST["password"], $_POST["password_match"])) {
-            $errors['password_matched'] = "Password did not matched";
-        }
-    }
-
-
-    if (empty($_POST["email"])) {
-        $errors['email'] = "Email is required";
-    } else {
-        $inputs['email'] = sanitize($_POST["email"]);
-        if (!filter_var($inputs['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = "Invalid email format";
-        }
-    }
-
-    if (empty($_POST["education"])) {
-        $errors['education'] = "Education is required";
-    } else {
-        $inputs['education'] = sanitize($_POST["education"]);
-    }
-
-    if (empty($_POST["address"])) {
-        $errors['address'] = "Address is required";
-    } else {
-        $inputs['address'] = sanitize($_POST["address"]);
-    }
-
-
-    $inputs['gender'] = sanitize($_POST["gender"]);
-
-    $inputs['role'] = sanitize($_POST["role"]);
-
-    if (empty($errors)) {
-
-        $values = implode("','", $inputs);
-
-
-        $name = $inputs['name'];
-        $gender = $inputs['gender'];
-        $address = $inputs['address'];
-        $education = $inputs['education'];
-        $email = $inputs['email'];
-        $password = $inputs['password'];
-        $password_match=$inputs['password_match'];
-        $role=$inputs['role'];
-        $key=$_SESSION['key'];
-        $sql = "UPDATE users SET name='$name',address='$address', password='$password',password_match='$password_match',email='$email',education='$education',gender=$gender,role='$role' where id='$key'";
-
-      // print_r($inputs);
-
-        echo $inputs["name"];
-
-        if (mysqli_query($conn, $sql)) {
-            header('location: congratulation.php');
-
+        if (empty($_POST["name"])) {
+            $errors['name'] = "Name is required";
         } else {
-            $errors['server'] = "Error registering, please try again.";
-
+            $inputs['name'] = sanitize($_POST["name"]);
+            if (!preg_match("/^[a-zA-Z ]*$/", $_POST['name'])) {
+                $errors['name'] = "Only letters and white space allowed";
+            }
         }
+
+        if (empty($_POST["address"])) {
+            $errors['address'] = "Address is required";
+        } else {
+            $inputs['address'] = sanitize($_POST["address"]);
+        }
+
+        if (strlen($_POST["password"]) <= 6) {
+            $errors['password'] = "Password must be atleast 6 characters ";
+        } else {
+
+            $password_sanitized = sanitize($_POST["password"]);
+            $inputs['password']=md5($password_sanitized);
+        }
+
+//        if (empty($_POST["password_match"])) {
+//            $errors['password_match'] = "Reenter the password";
+//        } else {
+//
+//            $password_match_sanitized = sanitize($_POST["password_match"]);
+//            $inputs['password_match']=md5($password_match_sanitized);
+//        }
+//
+//        if (!(empty($_POST["password"]) && empty($_POST["password_match"]))) {
+//            if (strcmp($_POST["password"], $_POST["password_match"])) {
+//                $errors['password_matched'] = "Password did not matched";
+//            }
+//        }
+
+
+        if (empty($_POST["email"])) {
+            $errors['email'] = "Email is required";
+        } else {
+            $inputs['email'] = sanitize($_POST["email"]);
+            if (!filter_var($inputs['email'], FILTER_VALIDATE_EMAIL)) {
+                $errors['email'] = "Invalid email format";
+            }
+        }
+
+        if (empty($_POST["education"])) {
+            $errors['education'] = "Education is required";
+        } else {
+            $inputs['education'] = sanitize($_POST["education"]);
+        }
+
+        if (empty($_POST["address"])) {
+            $errors['address'] = "Address is required";
+        } else {
+            $inputs['address'] = sanitize($_POST["address"]);
+        }
+
+
+        $inputs['gender'] = sanitize($_POST["gender"]);
+
+        $inputs['role'] = sanitize($_POST["role"]);
+
+        if (empty($errors)) {
+
+            $values = implode("','", $inputs);
+
+
+            $name = $inputs['name'];
+            $gender = $inputs['gender'];
+            $address = $inputs['address'];
+            $education = $inputs['education'];
+            $email = $inputs['email'];
+            $password = $inputs['password'];
+//            $password_match=$inputs['password_match'];
+            $role=$inputs['role'];
+
+            $sql = "UPDATE users SET name='$name',address='$address', password='$password',email='$email',education='$education',gender=$gender,role='$role' ";
+
+            // print_r($inputs);
+
+          //  echo $inputs["name"];
+
+            if (mysqli_query($conn, $sql)) {
+                header('location: congratulation.php');
+
+            } else {
+                $errors['server'] = "Error registering, please try again.";
+
+            }
+        }
+        $rows='';
     }
-    $rows='';
-}
 
-else{
+    else{
 
-    $key=$_REQUEST['key'];
-    $query = "select name,address,password,password_match,email,education,gender,role from users where id='$key'";
-    $result=mysqli_query($conn,$query);
-    $rows=mysqli_fetch_assoc($result);
+        $key=$_REQUEST['key'];
+        $query = "select name,address,password,email,education,gender,role from users where id='$key'";
+        $result=mysqli_query($conn,$query);
+        $rows=mysqli_fetch_assoc($result);
 //    print_r($rows);
-    $_SESSION['key']=$key;
-}
+        $_SESSION['key']=$key;
+    }
 }
 require 'partials/header.php' ;
 
@@ -129,7 +129,6 @@ require 'partials/header.php' ;
         <?php if (!empty(getError('password_matched'))): ?>
             <div class="alert alert-danger">
                 <?php echo getError('password_matched'); ?>
-                <?php echo getError('server'); ?>
             </div>
         <?php endif; ?>
     </div>
@@ -154,7 +153,7 @@ require 'partials/header.php' ;
 
                    }
                    else {
-                      echo old('name');
+                       echo old('name');
                    } ?>">
             <?php echo getError('name'); ?>
             <br>
@@ -166,17 +165,17 @@ require 'partials/header.php' ;
                    {
                        if(getError('education'))
                        {
-                        //
+                           //
                        }
                        else
                        {
-                       echo $rows['education'];
+                           echo $rows['education'];
                        }
                    }
-                       else
-                           {
-                               echo old('education');
-                           } ?>">
+                   else
+                   {
+                       echo old('education');
+                   } ?>">
             <?php echo getError('education'); ?> <br>
             <label for="inputAddress3" class="control-label">Address</label>
 
@@ -253,24 +252,24 @@ require 'partials/header.php' ;
             } ?>">
             <?php echo getError('password'); ?><br>
 
-            <input type="password" class="form-control" name="password_match" id="exampleInputPassword1"
-                   placeholder="Reenter Password" value="<?php if(old('password_match')==null)
-            {
-                if(getError('password_match'))
-                {
-                    //
-                }
-                else
-                {
-                    echo $rows['password_match'];
-                }
-            }
-            else
-            {
-                echo old('password_match');
-            } ?>">
-            <?php echo getError('password_match'); ?><br>
-
+<!--            <input type="password" class="form-control" name="password_match" id="exampleInputPassword1"-->
+<!--                   placeholder="Reenter Password" value="--><?php //if(old('password_match')==null)
+//            {
+//                if(getError('password_match'))
+//                {
+//                    //
+//                }
+//                else
+//                {
+//                    echo $rows['password_match'];
+//                }
+//            }
+//            else
+//            {
+//                echo old('password_match');
+//            } ?><!--">-->
+<!--            --><?php //echo getError('password_match'); ?><!--<br>-->
+            <?php echo getError('server'); ?>
             <label><br>
                 <input type="submit" name="submit" class="btn btn-primary" value="Register">
             </label>

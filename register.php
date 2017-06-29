@@ -30,9 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //
 //        $password_sanitized = sanitize($_POST["password"]);
      //  $inputs['password']=md5($password_sanitized);
-       $random_function_call=random_password(12);
-       $inputs['password']=md5($random_function_call);
-//    }
+
+       $random_function_call=md5(mt_rand(0,getrandmax()));
+       $inputs['password']=$random_function_call;
+
+       //    }
 //
 //    if (empty($_POST["password_match"])) {
 //        $errors['password_match'] = "Reenter the password";
@@ -45,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //    if (!(empty($_POST["password"]) && empty($_POST["password_match"]))) {
 //        if (strcmp($_POST["password"], $_POST["password_match"])) {
 //            $errors['password_matched'] = "Password did not matched";
-        $inputs['password_match']=($random_function_call);
+      //  $inputs['password_match']=($random_function_call);
 //        }
 //    }
 
@@ -73,29 +75,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $inputs['address'] = sanitize($_POST["address"]);
     }
 
-
         $inputs['gender'] = sanitize($_POST["gender"]);
 
         $inputs['role'] = sanitize($_POST["role"]);
+        $token=md5(mt_rand(0,getrandmax()));
+        $inputs['token']=$token;
+
 
     if (empty($errors)) {
 
         $values = implode("','", $inputs);
 
-        $sql = "insert into users (name,address,password,password_match,email,education,gender,role) values ('$values')";
+        $sql = "insert into users (name,address,password,email,education,gender,role,token) values ('$values')";
+
         if (mysqli_query($conn, $sql)) {
 
             $to = $_POST["email"];
             $subject = 'Your Password';
-            $message = 'Your password is :' .$random_function_call;
+            $message = 'Your password is : ' .$random_function_call. "     Link to update your password    http://crud.admin.user/reset-password.php?key=$token";
             $from = "From:Do not reply.This message is send to you by machine <no-reply@no-reply.biz>";
-            mail($to, $subject, $message, $from);
+            $te=mail($to, $subject, $message, $from);
 
             header('location: congratulation.php');
 
         } else {
-            $errors['server'] = "Error registering, please try again.";
-
+            $errors['server'] = "Some error in network conection";
         }
     }
 }
