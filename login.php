@@ -1,2 +1,2 @@
 <?php
-require 'includes/index.php';
+require 'index.php';

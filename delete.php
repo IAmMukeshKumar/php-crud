@@ -1,12 +1,24 @@
 <?php
 require 'includes/index.php';
 
-if(!isset($_SESSION['email']))
-    header('location:index.php');
+header('Content-Type: application/json');
 
-$key=$_GET["delete_key"];
-$query="DELETE FROM users
-WHERE id='$key'";
-$result=mysqli_query($conn,$query);
+if (!isset($_SESSION['email'])) {
+    http_response_code(401);
+    die;
+}
+
+$key = $_GET["id"];
+
+$key = mysqli_real_escape_string($conn,$key);
+
+$query = "DELETE FROM users WHERE id='$key'";
+
+if (mysqli_query($conn, $query)) {
+    echo json_encode(['status' => true]);
+} else {
+    http_response_code(400);
+}
+die;
 
 
