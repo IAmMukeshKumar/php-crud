@@ -293,6 +293,8 @@ require 'partials/header.php';
 
             <label><br>
                 <input type="submit" name="submit" class="btn btn-primary" value="Register">
+
+                <button type="reset" class="btn btn-default" value="Reset">Reset</button><br><br>
                 <button class="btn btn-default"><a href="includes/logout.php"> <i class="glyphicon glyphicon-off"></i> </a>
                 </button>
             </label>

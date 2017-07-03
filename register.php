@@ -182,6 +182,7 @@ require 'partials/header.php';
 <!--            --><?php //echo getError('server'); ?>
             <label><br>
                 <input type="submit" name="submit" class="btn btn-primary" value="Register">
+                <button type="reset" class="btn btn-default" value="Reset">Reset</button><br><br>
                 <a href="login.php">Login </a>
             </label>
         </div>

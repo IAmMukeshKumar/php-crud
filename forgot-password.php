@@ -23,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($errors)) {
-        $name=$inputs['name'];
-        $email=$inputs['email'];
+        $name = $inputs['name'];
+        $email = $inputs['email'];
         $query = "select id from users where email='$email' and name='$name'";
         $result = mysqli_query($conn, $query);
         $rows = mysqli_fetch_assoc($result);
@@ -34,9 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $id = $rows['id'];
             $token = md5(mt_rand(0, getrandmax()));
-            $query_set_token= "UPDATE users SET token='$token',password='$password_md5' where id='$id'";
+            $query_set_token = "UPDATE users SET token='$token',password='$password_md5' where id='$id'";
 
-            $result=mysqli_query($conn,$query_set_token) ;
+            $result = mysqli_query($conn, $query_set_token);
             $affected = mysqli_affected_rows($conn);
 
             if ($affected == 1) {
@@ -49,17 +49,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $mail = mail($to, $subject, $message, $from, $headers);
                 if ($mail) {
-                    $inputs['mail_confirmation'] = "We have sent a password and a link to your mail please check your MAIL  <br> <a href='login.php'> Login</a> ";
-                }
-                else
-                {
-                    $inputs['mail_confirmation']="We are not able to send mail currently please try later";
+                    $inputs['mail_confirmation'] = " Machine generated password and <abbr title='ONE TIME LINK'>OTL</abbr> has been sent to your mail please check your MAIL  <br> <a href='login.php'> Login</a> ";
+                } else {
+                    $inputs['mail_confirmation'] = "We are not able to send mail currently please try later";
                 }
             }
         } elseif (mysqli_num_rows($result) < 1) {
-            $inputs['mail_confirmation']="Email or Name is/are not valid please try again with a valid one";
-        }
-        else{
+            $inputs['mail_confirmation'] = "Email or Name is/are not valid please try again with a valid one";
+        } else {
             echo mysqli_error($conn);
         }
     }
@@ -73,7 +70,7 @@ require 'partials/header.php';
                 <div class="alert alert-danger">
                     <?php echo $inputs['mail_confirmation'] ?>
                 </div>
-            <?php endif ;?>
+            <?php endif; ?>
         </div>
 
         <form class="form-horizontal col-md-6 col-md-offset-3"
