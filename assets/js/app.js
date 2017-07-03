@@ -31,7 +31,6 @@ $(document).ready(function () {
                 $self.prop('disabled', false);
                 $self.find('i').removeClass('glyphicon-refresh').addClass('glyphicon-trash');
             });
-
         }
     });
 });
