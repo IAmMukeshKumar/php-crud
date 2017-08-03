@@ -83,25 +83,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $values = implode("','", $inputs);
 
         $sql = "insert into users (name,address,password,email,education,gender,role,token) values ('$values')";
-        $result=mysqli_query($conn, $sql);
-        if (mysqli_affected_rows($conn)==1) {
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_affected_rows($conn) == 1) {
 
             $to = $_POST["email"];
             $subject = 'Your Password';
             $message = 'Your password is : ' . $random_function_call . "  <br>   Link to update your password  http://crud.admin.user/reset-password.php?key=$token ";
             $from = "From:Do not reply. This message is send to you by machine <no-reply@no-reply.biz>";
             // To send HTML mail, the Content-type header must be set
-            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
             mail($to, $subject, $message, $from, $headers);
 
             header('location: congratulation.php');
 
-        }
-        else
-        {
-            $errors['server']=mysqli_error($conn);
+        } else {
+            $errors['server'] = mysqli_error($conn);
         }
     }
 }
@@ -112,11 +110,11 @@ require 'partials/header.php';
 <div class="container">
 
     <div class="col-md-6 col-md-offset-3">
-        <?php if (getError('server')!=null): ?>
+        <?php if (getError('server') != null): ?>
             <div class="alert alert-danger">
-                <?php echo "<h4>Server says :</h4> <br> ".getError('server'); ?>
+                <?php echo "<h4>Server says :</h4> <br> " . getError('server'); ?>
             </div>
-        <?php endif ;?>
+        <?php endif; ?>
     </div>
 
     <form class="form-horizontal col-md-6 col-md-offset-3"
@@ -170,19 +168,11 @@ require 'partials/header.php';
                 User
                 <?php echo getError('role'); ?>
             </label><br>
-            <!--            <label for="exampleInputPassword1">Password </label>-->
-            <!---->
-            <!--            <input type="password" class="form-control" name="password" id="exampleInputPassword1"-->
-            <!--                   placeholder="Password" value="--><?php //echo old('password') ?><!--">-->
-            <!--            --><?php //echo getError('password'); ?><!--<br>-->
-            <!--            <input type="password" class="form-control" name="password_match" id="exampleInputPassword1"-->
-            <!--                   placeholder="Reenter Password" value="-->
-            <?php //echo old('password_match') ?><!--">-->
-            <!--            --><?php //echo getError('password_match'); ?><!--<br>-->
-<!--            --><?php //echo getError('server'); ?>
+
             <label><br>
                 <input type="submit" name="submit" class="btn btn-primary" value="Register">
-                <button type="reset" class="btn btn-default" value="Reset">Reset</button><br><br>
+                <button type="reset" class="btn btn-default" value="Reset">Reset</button>
+                <br><br>
                 <a href="login.php">Login </a>
             </label>
         </div>

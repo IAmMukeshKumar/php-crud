@@ -54,17 +54,26 @@ require 'partials/header.php';
         <h1> Reset your password</h1>
 
         <label for="exampleInputEmail1">Email address</label>
+
         <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Email"
                value="<?php echo old('email') ?>">
+
         <?php echo getError('email'); ?><br>
+
         <label for="exampleInputPassword1"> New password </label>
+
         <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password"
                value="<?php echo old('password') ?>">
+
         <?php echo getError('password'); ?><br>
         <label><br>
+
             <input type="submit" name="submit" class="btn btn-primary" value="Submit">
+
         </label>
+
     </form>
+
 </div>
 
 <?php require 'partials/footer.php'; ?>

@@ -54,14 +54,12 @@ require 'partials/header.php';
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Sign in</button>
 
-            <a href="register.php">  Register </a>
+            <a href="register.php"> Register </a>
             <br><br>
             <a href="forgot-password.php">Forgot password? </a>
         </div>
 
-
     </form>
-
 
 </div>
 

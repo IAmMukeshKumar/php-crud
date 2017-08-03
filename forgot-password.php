@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($errors)) {
+
         $name = $inputs['name'];
         $email = $inputs['email'];
         $query = "select id from users where email='$email' and name='$name'";
@@ -44,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $subject = 'Your Password';
                 $message = 'Your password is : ' . $random_function_call . "     Link to update your password  http://crud.admin.user/reset-password.php?key=$token ";
                 $from = "From:Do not reply. This message is send to you by machine <no-reply@no-reply.biz>";
+
                 // To send HTML mail, the Content-type header must be set
                 $headers = 'MIME-Version: 1.0' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
@@ -55,9 +57,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
         } elseif (mysqli_num_rows($result) < 1) {
+
             $inputs['mail_confirmation'] = "Email or Name is/are not valid please try again with a valid one";
+
         } else {
+
             echo mysqli_error($conn);
+
         }
     }
 }
@@ -88,4 +94,5 @@ require 'partials/header.php';
             <button type="reset" class="btn btn-default" value="Reset">Reset</button>
         </form>
     </div>
+
 <?php require 'partials/footer.php'; ?>

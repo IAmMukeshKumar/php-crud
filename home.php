@@ -9,11 +9,11 @@ require 'partials/header.php';
 ?>
     <div class="container">
     <table class="table table-striped">
-    <h3> Users</h3>
+    <h3> Users </h3>
     <tr>
         <th> Name</th>
         <th> Email</th>
-        <th>Education</th>
+        <th> Education</th>
         <th> Gender</th>
         <th> Role</th>
         <th> Address</th>
@@ -36,17 +36,17 @@ $result = mysqli_query($conn, $query);
 while ($rows = mysqli_fetch_assoc($result)) { ?>
 
     <tr id="<?php echo $rows['id']; ?>">
-        <td><?php echo $rows["name"]; ?></td>
-        <td><?php echo $rows["email"]; ?></td>
-        <td><?php echo $rows["education"]; ?></td>
-        <td><?php $rows["gender"] ? $gender = "Male" : $gender = "Female";
-            echo $gender; ?></td>
-        <td><?php $rows["role"] ? $role = "Admin" : $role = "User";
-            echo $role; ?></td>
-        <td><?php echo $rows["address"]; ?></td>
+        <td> <?php echo $rows["name"]; ?> </td>
+        <td> <?php echo $rows["email"]; ?> </td>
+        <td> <?php echo $rows["education"]; ?> </td>
+        <td> ?php $rows["gender"] ? $gender = "Male" : $gender = "Female";
+            echo $gender; ?> </td>
+        <td> <?php $rows["role"] ? $role = "Admin" : $role = "User";
+            echo $role; ?> </td>
+        <td> <?php echo $rows["address"]; ?> </td>
         <td>
             <a class='btn btn-primary btn-xs' href='update.php?key=<?php echo $rows['id'] ?>'>
-                <i class="glyphicon glyphicon-pencil"></i>
+                <i class="glyphicon glyphicon-pencil"> </i>
             </a>
 
             <button class="delete_button btn btn-danger btn-xs" data-id="<?php echo $rows['id']; ?>">
@@ -57,6 +57,7 @@ while ($rows = mysqli_fetch_assoc($result)) { ?>
 
 
 <?php } ?>
+
     <button class="btn btn-default"><a href="includes/logout.php"> <i class="glyphicon glyphicon-off"></i> </a>
     </button>
 
